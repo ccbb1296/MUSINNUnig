@@ -34,7 +34,7 @@ print(df.shape)
 
 # 가격 분포 확인 (hist)
 plt.figure(figsize=(5, 5))
-plt.hist(df["MedHouseVal"], bins=30)
+sns.histplot(df["MedHouseVal"], bins=30)
 
 plt.title("Distribution of House Prices")
 plt.xlabel("House Price")
