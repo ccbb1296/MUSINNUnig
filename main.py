@@ -17,6 +17,7 @@ data = fetch_california_housing()
 x = data.data
 y = data.target
 
+# 데이터 프레임 만들기
 df = pd.DataFrame(x, columns=data.feature_names)
 
 # 주택 가격 추가
@@ -25,13 +26,14 @@ print(df.head())
 
 # csv 저장
 df.to_csv("california_housing.csv", index=False)
-print(df.shape)
+print(df.dropna())
 print(df.describe())
 print(df.isnull().sum())
-plt.figure(figsize=(8, 5))
+print(df.shape)
 
-# 가격 분포 확인
 
+# 가격 분포 확인 (hist)
+plt.figure(figsize=(5, 5))
 plt.hist(df["MedHouseVal"], bins=30)
 
 plt.title("Distribution of House Prices")
@@ -39,6 +41,7 @@ plt.xlabel("House Price")
 plt.ylabel("Frequency")
 
 plt.show()
+
 # x y 설정
 x = df.drop("MedHouseVal", axis=1)
 y = df["MedHouseVal"]
@@ -55,15 +58,19 @@ x_test = scaler.transform(x_test)
 
 # 모델
 m = LinearRegression()
+
 # 학습
 m.fit(x_train, y_train)
+
 # 예측
 y_pred = m.predict(x_test)
+
 # 평가
 r2 = r2_score(y_test, y_pred)
 mae = mean_absolute_error(y_test, y_pred)
 rmse = mean_squared_error(y_test, y_pred) ** 0.5
 
+# 출력
 print("r2 : ", r2)
 print("mae : ", mae)
 print("rmse : ", rmse)
