@@ -6,6 +6,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.metrics import r2_score, mean_absolute_error, mean_squared_error
 from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
 
 plt.rcParams["font.family"] = "Malgun Gothic"
 plt.rcParams["axes.unicode_minus"] = False
@@ -47,8 +48,10 @@ x_train, x_test, y_train, y_test = train_test_split(
     y,
     test_size=0.2, random_state=42)
 
+scaler = StandardScaler()
 
-
+x_train = scaler.fit_transform(x_train)
+x_test = scaler.transform(x_test)
 
 # 모델
 m = LinearRegression()
